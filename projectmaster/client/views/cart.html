@@ -1,0 +1,152 @@
+<style>
+  .address_form_agile {
+    margin-bottom: 100px;
+  }
+  .address_form_agile h4 {
+    color: #1accfd;
+    font-size: 24px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+  .creditly-card-form .submit span {
+    padding: 11px 18px;
+    font-size: 14px;
+  }
+  .information-wrapper input, .information-wrapper select {
+    width: 100%;
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 13px 10px;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #FF5722;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.31);
+  }
+  .checkout-right-basket {
+    margin-top: 20px;
+  }
+  .checkout-right-basket a {
+      padding: 12px 25px;
+      color: #fff;
+      font-size: 16px;
+      background: #000;
+      text-decoration: none;
+      letter-spacing: 1px;
+      display: inline-block;
+  }
+  .checkout-right-basket a:hover{
+      background: #FF5722;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+      -ms-transition: 0.5s all;
+  }
+  .checkout-right-basket a span {
+      margin-left: 7px;
+      color: #1accfd;
+      font-size: 20px;
+  }
+  button.submit.check_out {
+    padding: 12px 25px;
+    letter-spacing: 1px;
+    background: #1accfd;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    outline: none;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    margin-top: 20px;
+  }
+  button.submit.check_out:hover {
+      background: #FF5722;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+      -ms-transition: 0.5s all;
+  }
+</style>
+<div class="check-out" ng-init = "loadCart()">  
+  <div class="container" ng-if="backCart.length == 0 || !backCart">
+    <div class="address_form_agile">
+      <h4>Đơn hàng ko có sản phẩm nào!</h4>
+      <div class="checkout-right-basket col-md-offset-5">
+        <a href="#/products">Mua ngay !!
+          <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container" ng-if="backCart.length > 0">  
+    <div class="spec">
+      <h3 style="color: #1accfd;">Đơn hàng của quý khách</h3>
+      <div class="ser-t">
+        <b></b>
+        <span><i></i></span>
+        <b class="line"></b>
+      </div>
+    </div>
+    
+    <table ng-hide="close1" class="table table-hover" >
+      <tr>
+        <th class="t-head head-it ">Hình ảnh sản phẩm</th>
+        <th class="t-head">Tên sản phẩm</th>
+        <th class="t-head">Giá</th>
+        <th class="t-head">Số lượng</th>
+        <th class="t-head">Thành tiền</th>
+        <th class="t-head">Đặt hàng </th>
+      </tr>
+      <tr ng-repeat="info in backCart" class="animated wow bounce">
+        <td class="ring-in t-data">
+          <a href="#/books/details/{{info.databack._id}}" class="at-in">
+            <img style="max-width: 100px" class="img-responsive" ng-src="{{info.databack.image_url}}" alt="">
+          </a>
+          <div class="clearfix"> </div>
+          <div class="close1" ng-click="deleteCart($index)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
+        </td>
+        <td class="t-data">{{info.databack.title}}</td>
+        <td class="t-data">{{info.databack.price | number}}</td>
+        <td class="t-data">{{info.quanlity}}</td>
+        <td class="t-data">{{info.databack.price*info.quanlity | number}}</td>
+        <td class="t-data">         
+            <button type="submit" class="btn btn-primary" ng-click="addCart($index)" ng-disabled="!cartSignUp.$dirty || cartSignUp.$dirty &amp;&amp; cartSignUp.$invalid" disabled="disabled">Đặt hàng</button>     
+        </td>      
+      </tr>
+    </table>
+  </div>          
+</div>
+<div class="address_form_agile">
+  <h4>Vui lòng nhập thêm thông tin để có thể thanh toán đơn hàng:</h4>
+    <form class="creditly-card-form agileinfo_form" name="cartSignUp">
+      <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+        <div class="information-wrapper">
+          <div class="first-row">
+            <div class="w3_agileits_card_number_grids">
+              <div class="w3_agileits_card_number_grid_left">
+                <div class="controls">
+                  <input type="text" ng-model="phone" ng-minlength="9" required="number" ng-pattern="/^[0-9]/"placeholder="Mobile number">
+                </div>
+              </div>
+              <div class="w3_agileits_card_number_grid_right">
+                <div class="controls">
+                  <input type="text" ng-model="address" ng-minlength="12" required="" placeholder="Địa chỉ giao hàng">
+                </div>
+              </div>
+              <div class="clear"> </div>
+            </div>          
+          </div>
+          <button class="submit check_out btn" ng-click="addAllCart()" ng-disabled="!cartSignUp.$dirty || cartSignUp.$dirty &amp;&amp; cartSignUp.$invalid" disabled="disabled">Thanh toán toàn bộ đơn hàng</button>
+        </div>
+      </div>
+    </form>
+</div>
+
+

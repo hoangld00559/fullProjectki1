@@ -1,0 +1,37 @@
+<div class="container-fluid" ng-init="getBooks()">
+  <div class="row">
+    <label>Tìm kiếm:</label>
+    <input ng-model="seachText">
+  </div>
+  <div class="row">    
+      <table class="table table-striped table-advance table-hover">
+        <tbody>
+          <tr>
+            <th><i class="icon_profile"></i> Full Name</th>
+            <th><i class="icon_calendar"></i> Hình ảnh</th>
+            <th><i class="icon_mail_alt"></i> Loại quạt</th>
+            <th><i class="icon_pin_alt"></i> Thương hiệu</th>
+            <th><i class="icon_mobile"></i> Giá</th>
+            <th><i class="icon_cogs"></i> Action</th>
+          </tr>
+          <tr ng-repeat="book in books | filter: seachText">
+            <th>{{book.title}}</th>
+            <th> <img ng-src="{{book.image_url}}" alt="" class="img-responsive"/ style="width: 40px;"></th>
+            <th> {{book.genre}}</th>
+            <th> {{book.author}}</th>
+            <th> {{book.price | number}}</th>
+            <th>
+                <div class="btn-group">
+                <a class="btn btn-primary" href="#/books/edit/{{book._id}}">Sửa</a>
+                <!-- <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a> -->
+                <a class="btn btn-danger" ng-click="removeBook(book._id)">Xóa</a>
+              </div>
+            </th>
+          </tr>
+        </tbody>
+        <div class="col-md-4 col-md-offset-8">        
+        </div>
+      </table>
+    
+  </div>
+</div>

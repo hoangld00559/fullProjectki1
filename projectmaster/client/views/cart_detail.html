@@ -1,0 +1,35 @@
+<div class="container" ng-init="getCarts()">
+	<div class="spec" style="margin: 30px 0;">
+      <h2 style="color: #1accfd;">Sản phẩm bạn đã đặt:</h2>
+      <div class="ser-t">
+        <b></b>
+        <span><i></i></span>
+        <b class="line"></b>
+     	</div>
+    </div>
+
+	<table class="table table-striped">
+		<tr>
+		    <th>Ngày đặt</th>
+		    <th>Địa chỉ</th> 
+		    <th>Phone</th>
+		    <th>Đặt hàng</th>	    
+		    <th>Tình trạng</th>
+		    <!-- <th>Del</th>
+		    <th>Update</th> -->
+		</tr>
+		<tr ng-repeat="cart in cartProductItems | orderBy : userId | filter : search">
+			<td>{{cart.create_date | date: "HH:mm dd/MM/yyyy"}}</td>
+		    <td>{{cart.contact.address}}</td> 
+		    <td>{{cart.contact.phone}}</td>
+		    <td>
+		    	<p ng-repeat="car in cart.cart"><a href="#/books/details/{{car.product._id}}" style="color: #13d41b;">{{car.product.title}}&nbsp;&nbsp;<span class="badge" style="background-color: #f9512e">{{car.quanlity}}</span></a></p>				
+		    </td>	    
+		    <td>{{cart.status}}</td>
+		    <!-- <td><button class="btn btn-success" ng-click="removeCart(cart._id)">Remove</button></td>
+		    <td><button class="btn btn-primary" ng-click="updateCart(cart._id, cart.status)">Update</button></td> -->
+		</tr>
+
+	</table>
+
+</div>

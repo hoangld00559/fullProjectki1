@@ -1,0 +1,270 @@
+<style>
+  .nav-tabs.nav-justified > .active > a {
+    border: 1px solid #176269;
+    border-bottom-color: #fff;
+    border-radius: 20px 4px 0 0;
+  }
+  .nav-link {
+    font-size: 20px;
+    color: #2bbd31;
+  }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    color: #da2c0e;
+  }
+  .collpse.tabs .panel-default > .panel-heading {
+    background: #3079ed;
+  }
+  .collpse.tabs .panel-body {
+    font-size: 20px;
+    color: #e22727;
+  }
+</style>
+<script>
+  $(document).ready(function() {
+    $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+    });
+  });
+</script>
+
+<div class="products" ng-init="getBook()">   
+    <div class="container">  
+      <div class="single-page"> 
+        <div class="single-page-row" id="detail-21">       
+          <div class="col-md-6 single-top-left">
+            <div class="flexslider">
+              <ul class="slides">
+                <li data-thumb="{{book.image_url}}">
+                  <div class="thumb-image detail_images"> <img ng-src="{{book.image_url}}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+                </li>
+                <li data-thumb="{{book.image_url1}}">
+                   <div class="thumb-image"> <img ng-src="{{book.image_url1}}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+                </li>
+                <li data-thumb="{{book.image_url2}}">
+                   <div class="thumb-image"> <img ng-src="{{book.image_url2}}" data-imagezoom="true" class="img-responsive" alt=""> </div>
+                </li> 
+              </ul>
+            </div>              
+          </div>
+          <div class="col-md-6 single-top-right">
+            <h3> {{book.title}}</h3>
+            <p>Sản phẩm sẽ được giao tận tay cho quý khách trong vòng 1-3 ngày </p>
+            <div class="single-rating">
+              <ul>
+                <div ng-controller="RatingDemoCtrl">
+                <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                <span style="margin:30px 0">Rate: <b>{{rate}}</b></span>
+                <button type="button" class="btn btn-sm btn-default" ng-click="isReadonly = ! isReadonly">Add your review</button>
+              </ul> 
+            </div>
+            <div class="single-price">
+              <ul>
+                <li>{{book.price | number}} VND</li>  
+                <li ng-if="book.discount"><del>{{book.price*(book.discount+100)/100 | number}} VNĐ</del></li> 
+                <li ng-if="book.discount"><span class="w3off">Discount: {{book.discount}}%</span></li> 
+                <li ng-if="book.overdiscount">Ends on: {{book.overdiscount}} day</li>
+              </ul> 
+            </div> 
+            <p>Lắp đặt: <span style="color: red">Miễn phí</span><strong>&nbsp;&nbsp;Bảo hành: 12 tháng chính hãng</strong> </p>
+            <p style="color: #1f9e76">Hàng luôn sẵn có. Không phát sinh bất cứ chi phí nào</p>
+            <p ng-if="book.pages"><i class="fa fa-gift" aria-hidden="true" style="color: yellow; font-size: 40px;"></i>&nbsp;&nbsp;<span style="color: orange">Chương trình ưu đãi: {{book.pages}}</span></p>
+            <form>              
+              <button type="submit" class="w3ls-cart" ng-click="cartclick(book._id)"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
+            </form>
+            <button class="w3ls-cart w3ls-cart-like"><i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist</button>
+          </div>
+           <div class="clearfix"> </div>  
+        </div>
+      </div> 
+    </div>
+
+
+    <uib-tabset active="activeJustified" justified="true" style="margin-top: 50px">
+      <uib-tab index="0" heading="Thông số kĩ thuật">
+        <h4 style="margin: 20px 25px; font-size: 22px">{{book.description}}</h4>
+        <table class="table" style="border-radius: 10px; box-shadow: 2px 2px 4px #5eea90;">
+          <tr>
+            <td style="margin-left: 50px;"><strong>Kích thước:</strong> {{book.shape}}</td>
+          </tr>
+          <tr>
+            <td style="margin-left: 50px;"><strong>Trọng lượng:</strong> {{book.height}}</td>
+          </tr>
+          <tr>
+            <td style="margin-left: 50px;"><strong>Công suất:</strong> {{book.capacity}}</td>
+          </tr>
+          <tr>
+            <td style="margin-left: 50px;"><strong>Cánh quạt:</strong> {{book.propeller}}</td>
+          </tr>
+          <tr>
+            <td style="margin-left: 50px;"><strong>Tốc độ gió:</strong> {{book.winspeed}}</td>
+          </tr>
+          <tr>
+            <td style="margin-left: 50px;"><strong>Bảng điều khiển:</strong> {{book.controller}}</td>
+          </tr>
+          <tr>
+            <td style="margin-left: 50px;"><strong>Xuất xứ:</strong> {{book.publisher}}</td>
+          </tr>
+          </table>
+      </uib-tab>
+      <uib-tab index="2" heading="Tính năng vượt trội">
+        <div class="collpse tabs">
+          <div ng-controller="AccordionDemoCtrl">
+            <script type="text/ng-template" id="group-template.html">
+              <div class="panel-heading">
+                <h4 class="panel-title" style="color:#fa39c3">
+                  <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+                    <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+                      {{heading}}
+                    </span>
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse" uib-collapse="!isOpen">
+                <div class="panel-body" style="text-align: right" ng-transclude></div>
+              </div>
+            </script>
+            <div class="checkbox" style="margin-top: -15px;">
+              <label>
+                <input type="checkbox" ng-model="oneAtATime">
+                Mở toàn bộ
+              </label>
+            </div>
+            <uib-accordion close-others="oneAtATime">
+              <div uib-accordion-group class="panel-default" heading="Tính năng #1" is-open="status.isFirstOpen">
+                {{book.description1}}
+              </div>
+              <div uib-accordion-group class="panel-default" heading="Tính năng #2">
+                {{book.description2}}
+              </div>
+              <div uib-accordion-group class="panel-default" heading="Tính năng #3">
+                {{book.description3}}
+              </div>
+              <div uib-accordion-group class="panel-default" heading="Tính năng #4">
+                {{book.image_url3}}
+              </div>
+              
+            </uib-accordion>
+          </div>
+        </div>
+      </uib-tab>
+    </uib-tabset>  
+
+    <!-- <div class="pull-right">
+      <a href="#/books/edit/{{book._id}}">Edit</a> |  <a href="#" ng-click="removeBook(book._id)">Delete</a>
+    </div> --> 
+</div>
+
+ <div class="clearfix"> </div>
+<script src="js/jquery.flexslider.js"></script>
+<script src="js/imagezoom.js"></script>
+
+<style>
+  /*phan duoi*/
+  .nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 25px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top: 0em;
+  }
+  .nbs-flexisel-nav-left {
+      left: 0;
+      background: url(../images/img-sprite.png) no-repeat 5px center;
+      background-color:#00e58b;
+  }
+  .nbs-flexisel-nav-right { 
+      right: 0%;
+      background: url(../images/img-sprite.png) no-repeat -20px center;
+      background-color: #00e58b;
+  }
+  .nbs-flexisel-container {
+    position: relative;
+    max-width: 100%;
+  }
+  .nbs-flexisel-ul {
+    position: relative;
+    width: 9999px;
+    list-style-type: none;
+  }
+  .nbs-flexisel-inner {
+    overflow: hidden;
+    width:90%;
+    margin: 0 auto;
+  }
+  .nbs-flexisel-item {
+    float: left;
+    position: relative;
+    line-height: 0px;
+  }
+  .nbs-flexisel-item > img {
+    cursor: pointer;
+    position: relative; 
+</style>
+
+<div class="featured-section">
+  <div class="container">
+      <h3 class="tittle-w3l">Sản phẩm khác
+        <span class="heading-style">
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+      </h3>
+      <div class="content-bottom-in">
+        <ul id="flexiselDemo2" ng-init="getBooks()">     
+          <li class="nbs-flexisel-item" ng-repeat="book in books | filter: 'quattran'">
+            <a href="#/books/details/{{book._id}}">
+              <div class="w3l-specilamk" style="height: 300px">
+                <div class="speioffer-agile">
+                  <a href="#">
+                    <img ng-src="{{book.image_url}}" alt="" class="img-responsive">
+                  </a>
+                </div>
+              <div class="product-name-w3l">
+                <h4>{{book.title}}</h4>
+                <div class="w3l-pricehkj">
+                  <h6>{{book.price | number}}</h6>
+                  <p>VNĐ</p>
+                </div>
+              </div>
+            </div>
+            </a>            
+          </li>
+        </ul>
+        <div class="clearfix"> </div> 
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#flexiselDemo2").flexisel({
+        visibleItems: 6,
+        animationSpeed: 1000,
+        autoPlay: true,
+        autoPlaySpeed: 3000,
+        pauseOnHover: true,
+        enableResponsiveBreakpoints: true,
+        responsiveBreakpoints: {
+          portrait: {
+            changePoint: 480,
+            visibleItems: 1
+          },
+          landscape: {
+            changePoint: 640,
+            visibleItems: 2
+          },
+          tablet: {
+            changePoint: 768,
+            visibleItems: 2
+          }
+        }
+      });      
+    });
+</script>
+<!-- <script type="text/javascript" src="../js/jquery.flexisel.js"></script> -->
+  
+
+

@@ -1,0 +1,60 @@
+<div class="container-fluid" ng-init="getCarts()">
+	<div class="row">
+		<div class="col-md-5">
+			<label>Ngày bắt đầu:</label>
+		    <select ng-model="a">
+		    	<option value="2018-02-04">"2018-02-04"</option>
+		    	<option value="2018-02-05">"2018-02-05"</option>
+		    	<option value="2018-02-06">"2018-02-06"</option>
+		    	<option value="2018-02-07">"2018-02-07"</option>
+		    </select>
+		</div>
+		<div class="col-md-4">
+			<label>Tìm kiếm:</label>
+			<input ng-model="seachText">			
+		</div>
+		<div class="col-md-3">
+			<label>Tình trạng</label>
+			<select ng-model="seachText.status">
+		    	<option value="Đang chờ xử lý">Đang chờ xử lý</option>
+		    	<option value="Đang giao hàng">Chờ giao hàng</option>
+		    	<option value="Hoàn thành">Hoàn thành</option>
+	    	</select>
+		</div>	    
+	</div>
+	<table class="table">
+	<tr>
+	    <th>Ngày đặt</th>
+	    <th>Người đặt</th>
+	    <th>Địa chỉ</th> 
+	    <th>Phone</th>
+	    <th>Đặt hàng</th>	    
+	    <th>Tình trạng</th>
+	    <th>Action</th>
+	</tr>
+	<tr ng-repeat="cart in cartProductItems | orderBy: '-create_date' | filter: seachText" ng-hide="cart.create_date <= a">
+		<td>{{cart.create_date | date: "HH:mm dd/MM/yyyy"}}</td>
+		<td>{{cart.user[0].name.name}}</td>
+	    <td>{{cart.contact.address}}</td> 
+	    <td>{{cart.contact.phone}}</td>
+	    <td>
+	    	<p ng-repeat="car in cart.cart"><a href="#/books/edit/{{car.product._id}}">{{car.product.title}}&nbsp;&nbsp;<span class="badge" style="background-color: #e40a0a;">{{car.quanlity}}</span></a></p>				
+	    </td>	    
+	    <td><select ng-model="cart.status" class="form-control" ng-disabled="cart.status === 'Hoàn thành'">
+		        <option value="Đang chờ xử lý">Đang chờ xử lý</option>
+		        <option value="Đang giao hàng">Chờ giao hàng</option>
+		        <option value="Hoàn thành">Hoàn thành</option>
+			</select>
+		</td>
+		<td style="width: 120px;">
+			<div class="btn-group">
+	            <a class="btn btn-primary" ng-click="updateCart(cart._id, cart.status)">Sửa</a>
+	            <!-- <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a> -->
+	            <a class="btn btn-danger" ng-click="removeCart(cart._id)">Xóa</i></a>
+	        </div>
+		</td>
+	</tr>
+</table>
+</div>
+
+

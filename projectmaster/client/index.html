@@ -1,0 +1,228 @@
+<html ng-app="myApp">
+<head>
+	<title>FanoFan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="https://cdn1.iconfinder.com/data/icons/mini-solid-icons-vol-15/16/750-512.png" />
+  <!--  style -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" media="all">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all" />
+  <link rel="stylesheet" type="text/css" href="css/flexslider.css">
+  <!--   js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="js/jquery.wmuSlider.js"></script> 
+  <script src="js/jquery.flexslider.js"></script>
+  <script src="js/jquery.flexisel.js"></script>
+  <script src="js/imagezoom.js"></script>
+</head>
+<body>
+<!--header -->
+<div class="header-top-w3layouts" style="margin: 10px 0;">
+  <div class="container">
+    <div class="col-md-6 logo-w3">
+      <a href="#/"><img src="images/logo2.png" alt=" " style="width: 50%;position: absolute;top: -14px;left: 10px;" /></a>
+      <!-- <h1>FANoFAN<span>Company</span></h1> -->
+    </div>
+    <div class="col-md-6 phone-w3l">
+      <ul ng-controller="authenticationController"  ng-cloak>
+        <li ng-show="!isLoggedIn" style="margin-right: 10px;"><a href="#/registers"><span class="glyphicon glyphicon-user"></span>Đăng ký</a></li>
+        <li ng-show="!isLoggedIn"><a href="#/logins"><span class="glyphicon glyphicon-log-in"></span>Đăng nhập</a></li>
+        <li ng-show="isLoggedIn">
+          <div class="btn-group" uib-dropdown dropdown-append-to-body>
+            <button id="btn-append-to-body" type="button" class="btn btn-primary btn-sm" uib-dropdown-toggle style="background-color: #00e58b; border-color: #00e58b; width: 110px;">
+              {{loggedInUsername}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+              <li role="menuitem"><a href="#/carts">Giỏ hàng</a></li>
+              <li role="menuitem"><a href="#/carts/details">Hàng đã đặt</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href="#" ng-click="handleLogout()">Đăng xuất</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="header-bottom-w3ls">
+  <div class="container">
+    <div class="col-md-7 navigation-agileits">
+      <nav class="navbar navbar-default">
+        <div class="navbar-header nav_2">
+          <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div> 
+        <div class="collapse navbar-collapse" ng-controller="navController">
+          <ul class="nav navbar-nav">
+            <li ng-class="{active: isActive('/')}"><a href="#/" class="hyper"><span>TRANG CHỦ</span></a></li>  
+            <li ng-class="{active: isActive('/products')}">
+              <a href="#/products" class="hyper"><span>SẢN PHẨM</span></a>                
+            </li>
+            <li ng-class="{active: isActive('/brands')}">
+                <a href="#/brands" ><span> HÃNG SẢN XUẤT </span></a>
+            </li>
+            <li ng-class="{active: isActive('/abouts')}"><a href="#/abouts" class="hyper"><span>VỀ CHÚNG TÔI</span></a></li>
+            <li ng-class="{active: isActive('/contacts')}"><a href="#/contacts" class="hyper"><span>LIÊN HỆ</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>  
+    <div class="col-md-4 search-agileinfo" ng-controller="searhController">
+      <form>
+        <input type="search" name="Search" placeholder="Tìm kiếm sản phẩm..." required="" ng-model="searchText">
+        <button type="reset" class="btn btn-default search" aria-label="Left Align" ng-click="searchNavbar()">
+          <i class="fa fa-search" aria-hidden="true"> </i>
+        </button>
+      </form>
+    </div>
+    <div class="col-md-1 cart-wthree" ng-controller="CartController">
+      <div class="cart"> 
+        <form class="last"> 
+          <input type="hidden" name="cmd" value="_cart" />
+          <input type="hidden" name="display" value="1" />
+          <button class="w3view-cart" type="submit" name="submit" value="" ng-click="viewCartButton()"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+        </form>  
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<!-- ng-view -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    	<div ng-view></div>
+    </div>
+  </div>
+</div>
+<!-- newsletter -->
+ <div class="newsletter" ng-controller="newsletterController">
+   <div class="container">
+     <div class="col-md-6 w3agile_newsletter_left">
+       <h3 style="font-style: italic; font-family: cursive; font-size: 37px;">Đăng ký nhận thông tin.</h3>
+       <p>Bạn cần thông tin, hãy gửi mail cho chúng tôi!.</p>
+     </div>
+     <div class="col-md-6 w3agile_newsletter_right">
+       <form ng-submit="contactIndex()">
+         <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value ='Email';}" required="">
+         <input type="submit" value="Subscribe"/>
+       </form>
+     </div>
+     <div class="clearfix"> </div>
+   </div>
+ </div>
+<!-- footer -->
+<div class="footer">
+  <div class="container">
+    <div class="col-md-4 footer-grids fgd1">
+    <a href="#/"><img src="images/logo2.png" alt=" " style="width: 60%; top: -21px;left: 32px;" /></a>
+      <!-- <h3>FANOFAN<span>COMPANY</span></h3> -->
+    <ul>
+      <li style="margin-top: 50px;">Số 8 Tôn Thất Thuyết, Nam Từ Liêm</li>
+      <li>Thành phố Hà Nội.</li>
+      <li><a href="mailto:info@example.com">fanofan@gmail.com</a></li>
+      <a href="https://twitter.com/FanOFan5?edit=true"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+      <a href="#/"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+      <a href="https://www.facebook.com/FAN-o-FAN-149130269223787/"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+      <a href="#/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+    </ul>
+    </div>
+    <div class="col-md-4 footer-grids fgd2">
+      <h4>Thông tin</h4> 
+      <ul>
+        <li><a href="#/contacts">Liên hệ </a></li>
+        <li><a href="#/abouts">Về chúng tôi</a></li>
+        <li><a href="#/faqs">FAQ's</a></li>
+      </ul>
+    </div>
+    <div class="col-md-4 footer-grids fgd4">
+      <h4>Tài khoản</h4> 
+      <ul>        
+        <li><a href="#/logins">Đăng nhập</a></li>
+        <li><a href="#/registers">Đăng ký</a></li>
+        <li><a href="#/payments">Thanh toán</a></li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <p class="copy-right">© 2017 FanoFan Company . All rights reserved | Design by <a href="http://kenh14.vn"> lehoang.</a></p>
+  </div>
+</div>
+<!-- cart -->
+<div id="PPsbmincart" ng-controller="CartController" class="animated wow bounceIn">
+    <form ng-init = "loadCart()">    
+      <button type="button" class="sbmincart-closer" ng-click="sbmincartcloser()">×</button> 
+      <div ng-if="backCart.length > 0">
+        <ul>                
+          <li class="sbmincart-item sbmincart-item-changed" ng-repeat="info in backCart">            
+            <div class="sbmincart-details-name">                
+              <a class="sbmincart-name" href="#/books/details/{{info.databack._id}}">{{info.databack.title}}</a>                
+              <ul class="sbmincart-attributes">                                                                            
+              </ul>            
+            </div>            
+            <div class="sbmincart-details-quantity">                
+              <input class="sbmincart-quantity" data-sbmincart-idx="0" name="quantity_1" type="text" pattern="[0-9]*" ng-model='info.quanlity' autocomplete="off">            
+            </div>            
+            <div class="sbmincart-details-remove">                
+              <button type="button" class="sbmincart-remove" data-sbmincart-idx="0" ng-click="deleteCart($index)">×</button>            
+            </div>            
+            <div class="sbmincart-details-price">                
+              <span class="sbmincart-price">{{info.databack.price*info.quanlity}} VNĐ</span>           
+            </div>                 
+          </li>            
+        </ul>    
+        <div class="sbmincart-footer">                    
+          <div class="sbmincart-subtotal">                   
+          <a href="#/carts" ng-click="sbmincartcloser()"><button class="btn btn-primary">Thanh toán!</button> </a>         
+          </div>  
+        </div>   
+      </div>   
+      <div ng-if="backCart.length == 0 || !backCart">
+        <h4>Đơn hàng ko có sản phẩm nào!</h4>
+        <a href="#/products" style="margin-left: 130px; font-size: 20px;" ng-click="sbmincartcloser()">Mua ngay !!
+          <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+        </a>
+    </div>
+    </form>
+</div>
+<a onclick="topFunction()" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 0;"></span>To Top</a>
+<script>
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("toTop").style.display = "block";
+      } else {
+          document.getElementById("toTop").style.display = "none";
+      }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+  }
+</script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="/bower_components/angular/angular.js"></script>
+	<script src="/bower_components/angular-route/angular-route.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>  
+	
+	<script src="/app.js"></script>
+	<script src="/controllers/books.js"></script>
+  <script src="/controllers/authors.js"></script>
+  <script src="/controllers/navControllers.js"></script>  
+  <script src="/controllers/loginRegisterController.js"></script>
+  <script src="/controllers/cartController.js"></script>
+  <script src="/directives/comparePassword.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+  </body>
+</html>

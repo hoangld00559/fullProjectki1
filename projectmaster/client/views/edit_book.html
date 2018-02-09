@@ -1,0 +1,130 @@
+<a href="#/books">Go Back</a>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Edit Book</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+      <form ng-submit="updateBook()" ng-init="getBook()">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" class="form-control" ng-model="book.title" placeholder="Tên sản phẩm">
+        </div>
+        <div class="form-group">
+          <label>Genre: Loại quạt</label>
+          <select ng-model="book.genre" class="form-control">
+            <option value="quathop">Quạt hộp</option>
+            <option value="quatban">Quạt bàn</option>
+            <option value="quatsacdien">Quạt sạc điện</option>
+            <option value="quattreotuong">Quạt treo tường</option>
+            <option value="phunsuong">Phun sương</option>
+            <option value="quatlung">Quạt lửng</option>
+            <option value="quatdung">Quạt đứng</option>
+            <option value="dieuhoa">Điều hòa</option>
+            <option value="thonggio">Quạt thông gió</option>
+            <option value="loaikhac">Các loại khác</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Author: Hãng sản xuất</label>
+          <select ng-model="book.author" class="form-control">
+            <option value="sunhouse">Sunhouse</option>
+            <option value="Asia">Asia</option>
+            <option value="Midea">Midea</option>
+            <option value="Mitsubishi">Mitsubishi</option>
+            <option value="Tefal">Tefal</option>
+            <option value="Panasonic">Panasonic</option>
+            <option value="Electrolux">Electrolux</option>
+            <option value="KDK">KDK</option>
+            <option value="Senko">Senko</option>
+            <option value="Other">Hãng khác</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Publisher</label>
+          <input type="text" class="form-control" ng-model="book.publisher" placeholder="Xuất xứ">
+        </div>
+        <div class="form-group">
+          <label>Pages</label>
+          <input type="text" class="form-control" ng-model="book.pages" placeholder="Tùy chọn">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="book.description" placeholder="Mô tả sản phẩm"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="text" class="form-control" ng-model="book.image_url" placeholder="Image URL hình ảnh sản phẩm">
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input type="text" class="form-control" ng-model="book.price" placeholder="Giá sản phẩm">
+        </div>
+        <div class="form-group">
+          <label>Discount</label>
+          <input type="text" class="form-control" ng-model="book.discount" placeholder="Giảm giá sản phẩm">
+        </div>
+        <div class="form-group">
+          <label>Overdiscount</label>
+          <input type="text" class="form-control" ng-model="book.overdiscount" placeholder="Thời gian giảm giá">
+        </div>
+        <div class="form-group">
+          <label>Shape</label>
+          <input type="text" class="form-control" ng-model="book.shape" placeholder="Hình dạng sản phẩm">
+        </div>
+        <div class="form-group">
+          <label>Height</label>
+          <input type="text" class="form-control" ng-model="book.height" placeholder="Trọng lượng sản phẩm">
+        </div>
+        <div class="form-group">
+          <label>Capacity</label>
+          <input type="text" class="form-control" ng-model="book.capacity" placeholder="Công suất quạt">
+        </div>
+        <div class="form-group">
+          <label>Propeller</label>
+          <input type="text" class="form-control" ng-model="book.propeller" placeholder="Số cánh quạt + đường kính cánh quạt">
+        </div>
+        <div class="form-group">
+          <label>Winspeed</label>
+          <input type="text" class="form-control" ng-model="book.winspeed" placeholder="Tốc độ gió">
+        </div>
+        <div class="form-group">
+          <label>Controller</label>
+          <input type="text" class="form-control" ng-model="book.controller" placeholder="Bảng điều khiển">
+        </div>
+        <div class="form-group">
+          <label>Description1</label>
+          <textarea class="form-control" ng-model="book.description1" placeholder="Mô tả sản phẩm 1"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Description2</label>
+          <textarea class="form-control" ng-model="book.description2" placeholder="Mô tả sản phẩm 2"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Description3</label>
+          <textarea class="form-control" ng-model="book.description3" placeholder="Mô tả sản phẩm 3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Image URL1</label>
+          <input type="text" class="form-control" ng-model="book.image_url1" placeholder="Image URL hình ảnh sản phẩm trang chi tiết chính">
+        </div>
+        <div class="form-group">
+          <label>Image URL2</label>
+          <input type="text" class="form-control" ng-model="book.image_url2" placeholder="Image URL hình ảnh sản phẩm trang chi tiết phụ">
+        </div>
+        <div class="form-group">
+          <label>Image URL3</label>
+          <input type="text" class="form-control" ng-model="book.image_url3" placeholder="Image URL hình ảnh sản phẩm trang chi tiết phụ">
+        </div>
+        <div class="form-group">
+          <label>Image URL4</label>
+          <input type="text" class="form-control" ng-model="book.image_url4" placeholder="Image URL hình ảnh sản phẩm trang chi tiết phụ">
+        </div>
+       
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+    </div>
+  </div>
+</div>

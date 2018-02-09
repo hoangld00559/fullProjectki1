@@ -1,0 +1,100 @@
+<div class="content" ng-init="getBooks()">
+	<div class="container">
+		<div class="col-md-3 w3ls_dresses_grid_left">
+			<div class="w3ls_dresses_grid_left_grid">
+				<h3>Sắp xếp theo:</h3>
+				<div class="w3ls_dresses_grid_left_grid_sub">
+					<div class="ecommerce_dres-type">
+						<ul>
+							<li><button ng-click="order = '-price'">Giá giảm dần</button></li>
+							<li><button ng-click="order = 'price'">Giá tăng dần</button></li>
+							<li><input type="text" ng-model="search" ng-change="order = 'title'" placeholder="Tìm kiếm..."></li>
+							<!-- <li><input type="text"  placeholder="Giá thấp từ"></li>	
+							<li><input type="text" placeholder="Giá cao đến"></li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="w3ls_dresses_grid_left_grid">
+				<h3>Các loại quạt</h3>
+					<div class="w3ls_dresses_grid_left_grid_sub">
+						<div class="ecommerce_dres-type">
+							<ul>
+								<li><button ng-click="order = none;search = none">Toàn bộ</button></li>
+								<li><button ng-click="order = 'genre';search = 'quathop'">Quạt hộp</button></li>
+								<li><button ng-click="order = 'genre';search = 'quatban'">Quạt bàn</button></li>
+								<li><button ng-click="order = 'genre';search = 'quatsacdien'">Quạt sạc điện</button></li>
+								<li><button ng-click="order = 'genre';search = 'quattreotuong'">Quạt treo tường</button></li>
+								<li><button ng-click="order = 'genre';search = 'quattran'">Quạt trần</button></li>
+								<li><button ng-click="order = 'genre';search = 'quatlung'">Quạt lửng</button></li>
+								<li><button ng-click="order = 'genre';search = 'quatdung'">Quạt đứng</button></li>
+								<li><button ng-click="order = 'genre';search = 'dieuhoa'">Quạt điều hòa</button></li>
+								<li><button ng-click="order = 'genre';search = 'quatsuoi'">Quạt sưởi</button></li>
+								<!-- <li><button ng-click="order = 'genre';search = 'loaikhac'">Các loại khác</button></li> -->
+								
+
+							</ul>
+						</div>
+					</div>
+			</div>
+			<div class="w3ls_dresses_grid_left_grid">
+				<h3>Hãng sản xuất</h3>
+				<div class="w3ls_dresses_grid_left_grid_sub">
+					<div class="ecommerce_dres-type">
+						<ul>
+							<li><button ng-click="order = 'author';search = 'sunhouse'">Sunhouse</button></li>
+							<li><button ng-click="order = 'author';search = 'Asia'">Asia</button></li>
+							<li><button ng-click="order = 'author';search = 'Midea'">Midea</button></li>
+							<li><button ng-click="order = 'author';search = 'Mitsubishi'">Mitsubishi</button></li>
+							<li><button ng-click="order = 'author';search = 'Tefal'">Tefal</button></li>
+							<li><button ng-click="order = 'author';search = 'Panasonic'">Panasonic</button></li>
+							<li><button ng-click="order = 'author';search = 'Electrolux'">Electrolux</button></li>
+							<li><button ng-click="order = 'author';search = 'KDK'">KDK</button></li>
+							<li><button ng-click="order = 'author';search = 'royal'">Royal</button></li>
+							<li><button ng-click="order = 'author';search = 'Other'">Other</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="w3ls_dresses_grid_left_grid_sub">
+				<div class="dresses_img_hover">
+					<img src="images/offer6.jpg" alt=" " class="img-responsive" />
+					<div class="dresses_img_hover_pos">
+						<h4>Upto<span>40%</span><i>Off</i></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9 col-sm-9 women-dresses" id="bodyShowsAction">			
+				<div class="col-md-4 women-grids wp1 animated wow fadeInRightBig" ng-repeat="book in books | orderBy: order | filter: search | limitTo: pageSize : (currentPage-1)*pageSize" >
+					<a href="#/books/details/{{book._id}}"><div class="product-img">
+						<span class="tag" ng-if="book.discount">-{{book.discount}}%</span>
+						<span class="product-gift" ng-if="book.pages"><span class="glyphicon glyphicon-gift"></span>&nbsp; Quà tặng </span>
+						<img ng-src="{{book.image_url}}" alt="" class="img-responsive" style="height: 224.98px;" />
+						<div class="p-mask">							
+						<button type="submit" class="w3ls-cart pw3ls-cart"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="margin-right: 30px;"></span>Xem chi tiết</button>
+						</div>
+					</div></a>
+					<i class="fa fa-star yellow-star" aria-hidden="true"></i>
+					<i class="fa fa-star yellow-star" aria-hidden="true"></i>
+					<i class="fa fa-star yellow-star" aria-hidden="true"></i>
+					<i class="fa fa-star yellow-star" aria-hidden="true"></i>
+					<i class="fa fa-star gray-star" aria-hidden="true"></i>
+					<button type="submit" class="w3ls-cart cart-my-home" ng-click="cartclick(book._id)"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
+					<h4>{{book.title}}</h4>
+					<h5> {{book.price | number}} VNĐ</h5>
+				</div>
+				<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="col-md-4 col-md-offset-8">
+    <ul uib-pagination total-items="books.length" ng-model="currentPage" items-per-page="pageSize" max-size="5" class="pagination-sm" boundary-links="true" force-ellipses="true"></ul>
+		
+	</div>
+
+</div>
+
+
+
