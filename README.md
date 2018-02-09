@@ -5,4 +5,4 @@ Nhớ cài đặt cả nodeJs và MongoDb
 # fullProjectki1
 Kiểm tra lại nếu bower.js nếu bootstrap hay angularJs không chạy thì chạy lại lệnh.
 # fullProjectki1
-Về cơ bản là web xấu :).
+Về cơ bản là web xấu :). Ai chưa có số a lưu vào nhá 0165.610.7021.
